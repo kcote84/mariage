@@ -19,7 +19,7 @@
       background-repeat: no-repeat;
       background-position: center;
       height: 100vh;
-      position: relative; /* au cas où */
+      position: relative;
     }
 
     #loader {
@@ -77,10 +77,10 @@
     }
 
     .btn-share {
-      position: fixed; /* corrigé ici */
+      position: fixed;
       bottom: 30px;
       left: 50%;
-      transform: translateX(-50%);
+      transform-origin: center;
       display: inline-flex;
       align-items: center;
       gap: 10px;
@@ -94,7 +94,7 @@
       cursor: pointer;
       user-select: none;
       box-shadow: 0 0 8px var(--bleu-marin);
-      animation: pulse 3s infinite;
+      animation: pulse3 2s infinite ease-in-out;
       transition: background-color 0.3s ease, transform 0.15s ease;
       z-index: 1;
     }
@@ -102,11 +102,12 @@
     .btn-share:hover {
       background-color: #054080;
       animation-play-state: paused;
-      transform: translateX(-50%) translateY(-2px);
+      /* garder translateX dans hover aussi */
+      transform: translateX(-50%) translateY(-2px) scale(1);
     }
 
     .btn-share:active {
-      transform: translateX(-50%) translateY(1px);
+      transform: translateX(-50%) translateY(1px) scale(1);
       box-shadow: 0 3px 6px var(--bleu-marin);
     }
 
@@ -117,28 +118,15 @@
       filter: brightness(0) invert(1);
     }
 
-    @keyframes pulse {
+    @keyframes pulse3 {
       0%, 100% {
+        transform: translateX(-50%) scale(1);
         box-shadow: 0 0 8px var(--bleu-marin);
       }
       50% {
+        transform: translateX(-50%) scale(1.08);
         box-shadow: 0 0 16px var(--bleu-marin);
       }
-    }
-    @keyframes pulse2 {
-      0% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.08);
-      }
-      100% {
-        transform: scale(1);
-      }
-    }
-    
-    .bouton-mariage {
-      animation: pulse2 2s infinite ease-in-out;
     }
   </style>
 </head>
@@ -154,7 +142,7 @@
   <a
     href="https://drive.google.com/drive/folders/TON_LIEN_ICI"
     target="_blank"
-    class="btn-share bouton-mariage"
+    class="btn-share"
     aria-label="Voir les photos du mariage"
   >
     <img src="CAM.png" alt="Icône appareil photo" />
