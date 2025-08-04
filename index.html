@@ -14,12 +14,19 @@
       margin: 0;
       padding: 0;
       background: url('merci.png') no-repeat center center fixed;
-      background-size: contain;
-      background-color: white;
       background-repeat: no-repeat;
       background-position: center;
+      background-color: white;
       height: 100vh;
       position: relative;
+      background-size: contain; /* Par défaut desktop */
+    }
+
+    /* Mobile : plein écran avec zoom */
+    @media (max-width: 768px) {
+      html, body {
+        background-size: cover;
+      }
     }
 
     #loader {
@@ -102,7 +109,6 @@
     .btn-share:hover {
       background-color: #054080;
       animation-play-state: paused;
-      /* garder translateX dans hover aussi */
       transform: translateX(-50%) translateY(-2px) scale(1);
     }
 
@@ -159,4 +165,3 @@
   </script>
 </body>
 </html>
-
