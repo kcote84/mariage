@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Merci pour votre présence</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Great+Vibes&display=swap" rel="stylesheet" />
+  <title>Merci!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --fond-blanc: #ffffff;
       --bleu-marin: #03224c;
     }
 
@@ -15,57 +14,32 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden;
       font-family: 'Roboto', sans-serif;
+      background: url('ORIGINALE-8433_50%.png') no-repeat center center fixed;
+      background-size: cover;
+      overflow: hidden;
     }
 
-    body.loaded {
-      overflow: auto;
-    }
-
-    body::before {
-      content: "";
-      background: url("ORIGINALE-8433_50%.png") center center / cover no-repeat;
+    #loader {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      z-index: -1;
-    }
-
-    .loader-container {
-      position: fixed;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       width: 100vw;
       height: 100vh;
-      background-color: white;
+      background-color: rgba(255,255,255,0.9);
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       z-index: 9999;
     }
 
-    .loader-logo {
+    .logo {
       width: 100px;
-      animation: pulseHeart 1.2s infinite;
+      animation: heartbeat 1.5s infinite;
     }
 
-    .loader-bar {
-      width: 60%;
-      height: 6px;
-      background: #eee;
-      border-radius: 3px;
-      overflow: hidden;
-      margin-top: 20px;
-    }
-
-    .loader-bar-inner {
-      width: 0;
-      height: 100%;
-      background: var(--bleu-marin);
-      animation: growBar 2s forwards;
-    }
-
-    @keyframes pulseHeart {
+    @keyframes heartbeat {
       0%, 100% {
         transform: scale(1);
       }
@@ -74,37 +48,37 @@
       }
     }
 
-    @keyframes growBar {
-      to {
-        width: 100%;
-      }
+    .loading-bar {
+      margin-top: 1rem;
+      width: 120px;
+      height: 6px;
+      background: #ddd;
+      position: relative;
+      overflow: hidden;
+      border-radius: 3px;
     }
 
-    .content {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      height: 100vh;
-      padding: 1rem;
-      opacity: 0;
-      animation: fadeInUp 1s ease-out forwards;
-      animation-delay: 2.2s;
+    .loading-bar::after {
+      content: '';
+      position: absolute;
+      left: -40%;
+      width: 40%;
+      height: 100%;
+      background: var(--bleu-marin);
+      animation: loading 1.5s infinite;
     }
 
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px) scale(0.95);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+    @keyframes loading {
+      0% { left: -40%; }
+      50% { left: 100%; }
+      100% { left: 100%; }
     }
 
     .btn-share {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
       display: inline-flex;
       align-items: center;
       gap: 10px;
@@ -115,27 +89,23 @@
       font-size: 1.2rem;
       border-radius: 10px;
       text-decoration: none;
-      font-family: 'Roboto', sans-serif;
       cursor: pointer;
       user-select: none;
       box-shadow: 0 0 8px var(--bleu-marin);
-      animation: pulseBtn 3s infinite;
+      animation: pulse 3s infinite;
       transition: background-color 0.3s ease, transform 0.15s ease;
-    }
-
-    @keyframes pulseBtn {
-      0%, 100% {
-        box-shadow: 0 0 8px var(--bleu-marin);
-      }
-      50% {
-        box-shadow: 0 0 16px var(--bleu-marin);
-      }
+      z-index: 1;
     }
 
     .btn-share:hover {
       background-color: #054080;
       animation-play-state: paused;
-      transform: translateY(-2px);
+      transform: translateX(-50%) translateY(-2px);
+    }
+
+    .btn-share:active {
+      transform: translateX(-50%) translateY(1px);
+      box-shadow: 0 3px 6px var(--bleu-marin);
     }
 
     .btn-share img {
@@ -144,35 +114,42 @@
       object-fit: contain;
       filter: brightness(0) invert(1);
     }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 8px var(--bleu-marin);
+      }
+      50% {
+        box-shadow: 0 0 16px var(--bleu-marin);
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="loader-container" id="loader">
-    <img src="Test3.png" alt="Chargement" class="loader-logo" />
-    <div class="loader-bar">
-      <div class="loader-bar-inner"></div>
-    </div>
+
+  <!-- Animation de chargement -->
+  <div id="loader">
+    <img src="Test3.png" alt="Logo Mariage" class="logo" />
+    <div class="loading-bar"></div>
   </div>
 
-  <div class="content" id="mainContent">
-    <a
-      href="https://drive.google.com/drive/folders/TON-LIEN-ID" target="_blank"
-      class="btn-share"
-      aria-label="Voir la galerie de photos"
-    >
-      <img src="CAM.png" alt="Icône appareil photo" />
-      Voir la galerie de photos
-    </a>
-  </div>
+  <!-- Bouton vers Google Drive -->
+  <a
+    href="https://drive.google.com/drive/folders/TON_LIEN_ICI"
+    target="_blank"
+    class="btn-share"
+    aria-label="Voir les photos du mariage"
+  >
+    <img src="CAM.png" alt="Icône appareil photo" />
+    Voir les photos du mariage
+  </a>
 
+  <!-- Script pour enlever le loader -->
   <script>
-    window.addEventListener("load", () => {
-      const loader = document.getElementById("loader");
+    window.addEventListener('load', () => {
       setTimeout(() => {
-        loader.style.display = "none";
-        document.body.classList.add("loaded");
-        document.getElementById("mainContent").style.opacity = "1";
-      }, 2200);
+        document.getElementById('loader').style.display = 'none';
+      }, 2000);
     });
   </script>
 </body>
