@@ -124,6 +124,21 @@
         box-shadow: 0 0 16px var(--bleu-marin);
       }
     }
+    @keyframes pulse2 {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.08);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    
+    .bouton-mariage {
+      animation: pulse2 2s infinite ease-in-out;
+    }
   </style>
 </head>
 <body>
@@ -138,7 +153,7 @@
   <a
     href="https://drive.google.com/drive/folders/TON_LIEN_ICI"
     target="_blank"
-    class="btn-share"
+    class="btn-share bouton-mariage"
     aria-label="Voir les photos du mariage"
   >
     <img src="CAM.png" alt="Icône appareil photo" />
@@ -155,6 +170,7 @@
   </script>
 </body>
 </html>
+
 
 
 
